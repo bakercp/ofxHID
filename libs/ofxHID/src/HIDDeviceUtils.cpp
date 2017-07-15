@@ -6,7 +6,7 @@
 
 
 #include "ofx/IO/HIDDeviceUtils.h"
-#include "hidapi.h"
+#include "hidapi/hidapi.h"
 
 
 namespace ofx {

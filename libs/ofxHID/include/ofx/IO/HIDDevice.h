@@ -8,7 +8,7 @@
 #pragma once
 
 
-#include "hidapi.h"
+#include "hidapi/hidapi.h"
 #include "ofConstants.h"
 #include "ofLog.h"
 #include "ofx/IO/HIDDeviceInfo.h"

@@ -40,13 +40,19 @@ bool HIDDevice::setup(const HIDDeviceInfo& descriptor)
 
     if (!devices.empty())
     {
-        _deviceHandle = hid_open_path(devices[0].path().data());
+        std::string path = devices[0].path();
 
-        if (_deviceHandle)
+        ofLogVerbose("HIDDevice::setup") << "Attempting to open: " << path;
+
+        _deviceHandle = hid_open_path(path.data());
+
+        if (_deviceHandle != nullptr)
         {
             _deviceInfo = std::make_unique<HIDDeviceInfo>(devices[0]);
             return true;
         }
+
+        ofLogError("HIDDevice::setup") << "Unable to open: " << path;
     }
 
     return false;

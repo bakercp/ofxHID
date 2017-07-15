@@ -10,9 +10,10 @@
 
 void ofApp::setup()
 {
-    auto devices = ofxIO::HIDDeviceUtils::listDevices();
-//    auto devices = ofxIO::HIDDeviceUtils::listDevicesWithVendorAndProductIds(1266, 2361);
-//    auto devices = ofxIO::HIDDeviceUtils::listDevicesWithVendorAndProductIds(1478, 61446);
+    ofSetLogLevel(OF_LOG_VERBOSE);
+    
+//    auto devices = ofxIO::HIDDeviceUtils::listDevices();
+    auto devices = ofxIO::HIDDeviceUtils::listDevicesWithVendorAndProductIds(5824, 1158);
 
     for (const auto& device: devices)
     {

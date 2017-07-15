@@ -56,7 +56,7 @@ function copy() {
 		cp -Rv $BUILD_ROOT_DIR/include/hidapi/* $1/include/hidapi/
 
 		mkdir -p $1/lib/$TYPE/
-		cp -Rv $BUILD_ROOT_DIR/lib/libhidapi.a $1/lib/$TYPE/
+		cp -Rv $BUILD_ROOT_DIR/lib/libhidapi*.a $1/lib/$TYPE/
 	fi
 
 	# copy license file

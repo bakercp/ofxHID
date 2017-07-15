@@ -181,7 +181,7 @@ protected:
 
 private:
     /// \brief The read timeout in milliseconds
-    int64_t _readTimeoutMillis = DEFAULT_READ_TIMEOUT;
+    uint64_t _readTimeoutMillis = DEFAULT_READ_TIMEOUT;
 
 //    /// \brief The write buffer, used for write operations.
 //    std::vector<uint8_t> _writeBuffer;

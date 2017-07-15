@@ -55,6 +55,25 @@ HIDDeviceInfo::DeviceList HIDDeviceUtils::listDevicesWithInfo(const HIDDeviceInf
 
     while (currentDevice)
     {
+#if defined(TARGET_OSX)
+        // This is a hack for this issue https://github.com/signal11/hidapi/issues/326.
+        if (currentDevice->interface_number == -1)
+        {
+            std::string _path = currentDevice->path;
+            std::string _key = "IOUSBHostInterface@";
+            std::size_t _n = _path.find(_key);
+            if (_n != std::string::npos)
+            {
+                std::size_t _start = _n + _key.size();
+                _n = _path.find("/", _start);
+                if (_n != std::string::npos)
+                {
+                    currentDevice->interface_number = std::stoi(_path.substr(_start, _n - _start));
+                }
+            }
+        }
+#endif
+
         auto device = HIDDeviceInfo(currentDevice->vendor_id,
                                     currentDevice->product_id,
                                     toMultiByteString(currentDevice->serial_number),
@@ -62,7 +81,8 @@ HIDDeviceInfo::DeviceList HIDDeviceUtils::listDevicesWithInfo(const HIDDeviceInf
                                     currentDevice->usage,
                                     toMultiByteString(currentDevice->manufacturer_string),
                                     toMultiByteString(currentDevice->product_string),
-                                    currentDevice->path);
+                                    currentDevice->path,
+                                    currentDevice->interface_number);
 
         if ((info.vendorId()     != HIDDeviceInfo::UNDEFINED_VENDOR_ID     && info.vendorId()     != device.vendorId())
         ||  (info.productId()    != HIDDeviceInfo::UNDEFINED_PRODUCT_ID    && info.productId()    != device.productId())
@@ -70,7 +90,8 @@ HIDDeviceInfo::DeviceList HIDDeviceUtils::listDevicesWithInfo(const HIDDeviceInf
         ||  (info.usagePage()    != HIDDeviceInfo::UNDEFINED_USAGE_PAGE    && info.usagePage()    != device.usagePage())
         ||  (info.usage()        != HIDDeviceInfo::UNDEFINED_USAGE         && info.usage()        != device.usage())
         ||  (info.manufacturer() != HIDDeviceInfo::UNDEFINED_MANUFACTURER  && info.manufacturer() != device.manufacturer())
-        ||  (info.product()      != HIDDeviceInfo::UNDEFINED_PRODUCT       && info.product()      != device.product()))
+        ||  (info.product()      != HIDDeviceInfo::UNDEFINED_PRODUCT       && info.product()      != device.product())
+        ||  (info.interfaceNumber() != HIDDeviceInfo::UNDEFINED_INTERFACE_NUMBER && info.interfaceNumber() != device.interfaceNumber()))
         // Ignore the path, as it is platform-specific.
         {
             // Skip it.

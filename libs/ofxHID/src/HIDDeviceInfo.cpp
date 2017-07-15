@@ -21,6 +21,7 @@ const std::string HIDDeviceInfo::UNDEFINED_SERIAL_NUMBER = "UNDEFINED_SERIAL_NUM
 const std::string HIDDeviceInfo::UNDEFINED_MANUFACTURER = "UNDEFINED_MANUFACTURER";
 const std::string HIDDeviceInfo::UNDEFINED_PRODUCT = "UNDEFINED_PRODUCT";
 const std::string HIDDeviceInfo::UNDEFINED_PATH = "UNDEFINED_PATH";
+const int HIDDeviceInfo::UNDEFINED_INTERFACE_NUMBER = -1;
 
 
 HIDDeviceInfo::HIDDeviceInfo(uint16_t vendorId,
@@ -47,7 +48,8 @@ HIDDeviceInfo::HIDDeviceInfo(uint16_t vendorId,
                   usage,
                   UNDEFINED_MANUFACTURER,
                   UNDEFINED_PRODUCT,
-                  UNDEFINED_PATH)
+                  UNDEFINED_PATH,
+                  UNDEFINED_INTERFACE_NUMBER)
 {
 }
 
@@ -59,7 +61,8 @@ HIDDeviceInfo::HIDDeviceInfo(uint16_t vendorId,
                              uint16_t usage,
                              const std::string& manufacturer,
                              const std::string& product,
-                             const std::string& path):
+                             const std::string& path,
+                             int interfaceNumber):
     _vendorId(vendorId),
     _productId(productId),
     _usagePage(usagePage),
@@ -67,7 +70,8 @@ HIDDeviceInfo::HIDDeviceInfo(uint16_t vendorId,
     _serialNumber(serialNumber),
     _manufacturer(manufacturer),
     _product(product),
-    _path(path)
+    _path(path),
+    _interfaceNumber(interfaceNumber)
 {
 }
 
@@ -125,6 +129,12 @@ std::string HIDDeviceInfo::path() const
 }
 
 
+int HIDDeviceInfo::interfaceNumber() const
+{
+    return _interfaceNumber;
+}
+
+
 ofJson HIDDeviceInfo::toJSON() const
 {
     ofJson json;
@@ -136,6 +146,7 @@ ofJson HIDDeviceInfo::toJSON() const
     json["manufacturer"] = _manufacturer;
     json["product"] = _product;
     json["path"] = _path;
+    json["interface_number"] = _interfaceNumber;
     return json;
 }
 
@@ -149,7 +160,8 @@ HIDDeviceInfo HIDDeviceInfo::fromJSON(const ofJson& json)
                          json.value("usage", UNDEFINED_USAGE),
                          json.value("manufacturer", UNDEFINED_MANUFACTURER),
                          json.value("product", UNDEFINED_PRODUCT),
-                         json.value("path", UNDEFINED_PATH));
+                         json.value("path", UNDEFINED_PATH),
+                         json.value("interface_number", UNDEFINED_INTERFACE_NUMBER));
 }
 
 

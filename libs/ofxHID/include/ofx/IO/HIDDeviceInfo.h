@@ -64,6 +64,7 @@ public:
     /// \param manufacturer The manufacturer string.
     /// \param product The product string.
     /// \param path The platform-specific device path.
+    /// \param interfaceNumber The interface number for composite devices.
     HIDDeviceInfo(uint16_t vendorId,
                   uint16_t productId,
                   const std::string serialNumber,
@@ -71,7 +72,8 @@ public:
                   uint16_t usage,
                   const std::string& manufacturer,
                   const std::string& product,
-                  const std::string& path);
+                  const std::string& path,
+                  int interfaceNumber);
 
     /// \brief Destroy the HIDDeviceInfo.
     ~HIDDeviceInfo();
@@ -99,7 +101,10 @@ public:
 
     /// \returns the platform-specific device path.
     std::string path() const;
-    
+
+    /// \returns the interface number for composite devices.
+    int interfaceNumber() const;
+
     /// \returns the JSON representation of this object.
     ofJson toJSON() const;
 
@@ -130,6 +135,9 @@ public:
     /// \brief Undefined path value.
     static const std::string UNDEFINED_PATH;
 
+    /// \brief Undefined interface number.
+    static const int UNDEFINED_INTERFACE_NUMBER;
+
 private:
     /// \brief Vendor ID, assigned by USB organization.
     uint16_t _vendorId = UNDEFINED_VENDOR_ID;
@@ -154,6 +162,9 @@ private:
 
     /// \brief The platform-specific device path.
     std::string _path;
+
+    /// \brief The interface number for composite devices.
+    int _interfaceNumber = UNDEFINED_INTERFACE_NUMBER;
 
 };
 

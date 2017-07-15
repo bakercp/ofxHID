@@ -6,4 +6,4 @@ meta:
 	ADDON_TAGS = "hid" "usb"
 	ADDON_URL = http://github.com/bakercp/ofxHID
 common:
-	ADDON_DEPENDENCIES = ofxIO
+	ADDON_DEPENDENCIES = ofxIO ofxKinect

@@ -57,12 +57,12 @@ function copy() {
 
 		mkdir -p $1/lib/$TYPE/
 
-		# if [ "$TYPE" == "osx" ] ; then
-			cp -Rv $BUILD_ROOT_DIR/lib/libhidapi*.a $1/lib/$TYPE/
-		# else
-		# 	# Only copy the hidraw backend on linux.
-		# 	cp -Rv $BUILD_ROOT_DIR/lib/libhidapi-hidraw.a $1/lib/$TYPE/
-		# fi
+	# if [ "$TYPE" == "osx" ] ; then
+		cp -Rv $BUILD_ROOT_DIR/lib/libhidapi*.a $1/lib/$TYPE/
+	# else
+	# 	# Only copy the hidraw backend on linux.
+	# 	cp -Rv $BUILD_ROOT_DIR/lib/libhidapi-hidraw.a $1/lib/$TYPE/
+	# fi
 	# fi
 
 	# copy license file

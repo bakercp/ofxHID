@@ -8,7 +8,7 @@
 
 # array of build types supported by this formula
 # you can delete this to implicitly support *all* types
-FORMULA_TYPES=( "osx" )
+FORMULA_TYPES=( "osx" "linux64")
 
 VER=master
 
@@ -39,7 +39,7 @@ function prepare() {
 
 # executed inside the lib src dir
 function build() {
-	if [ "$TYPE" == "osx" ] ; then
+	if [ "$TYPE" == "osx" || "$TYPE" == "linux64" ] ; then
 		./bootstrap
 		./configure --prefix=$BUILD_ROOT_DIR
 
@@ -51,7 +51,7 @@ function build() {
 # executed inside the lib src dir, first arg $1 is the dest libs dir root
 function copy() {
 
-	if [ "$TYPE" == "osx" ] ; then
+	if [ "$TYPE" == "osx" || "$TYPE" == "linux64" ] ; then
 		mkdir -p $1/include/hidapi
 		cp -Rv $BUILD_ROOT_DIR/include/hidapi/* $1/include/hidapi/
 
